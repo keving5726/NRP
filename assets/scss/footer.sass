@@ -1,0 +1,48 @@
+%transition
+  +transition(.3s all ease)
+
+.footer
+  position: absolute
+  bottom: 0
+  width: 100%
+  height: 20rem
+
+  .container
+    height: 100%
+    width: 100%
+
+  h5
+    border-left: .25rem solid
+
+  a
+    text-decoration: $link-decoration
+    background-color: transparent
+    color: $white
+
+  ul.socialmedia
+    li i
+      @extend %transition
+      font-size: $font-size-base * 1.5
+
+    li i:hover
+      font-size: $font-size-base * 2
+      margin-top: -1rem
+
+    li a:hover
+      color: $gray-300
+
+  ul.quick-links
+    li a
+      @extend %transition
+
+    li a:hover
+      margin-left: .25rem
+      font-weight: $font-weight-bold
+
++media-breakpoint-up(xl)
+    ul.socialmedia
+      li i
+        font-size: $font-size-base * 1.75
+
+      li i:hover
+        font-size: $font-size-base * 2.25
