@@ -12,10 +12,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
+/**
+ * @Route(
+ *     "/{_locale}",
+ *     defaults={
+ *         "_locale": "%locale%",
+ *         "_format": "html"
+ *     },
+ *     requirements={
+ *         "_locale": "%app.locales%",
+ *         "_format": "html|xml"
+ *     },
+ *     schemes={"https"}
+ * )
+ */
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/register", name="register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
@@ -24,6 +38,12 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $nationality = ($form->get('nationality')->getData() == true) ? "V" : "E";
+            $user->setIdentificationCard(
+                $nationality
+                . "-"
+                . $form->get('idCard')->getData()
+            );
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(

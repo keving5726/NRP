@@ -1,0 +1,25 @@
+{{ form_start(registrationForm) }}
+    <div class="form-row">
+        {{ form_errors(registrationForm.idCard) }}
+        <div class="form-group col-3">
+            {{ form_label(registrationForm.nationality) }}
+            {{ form_widget(registrationForm.nationality) }}
+        </div>
+        <div class="form-group col">
+            {{ form_label(registrationForm.idCard) }}
+            {{ form_widget(registrationForm.idCard) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_errors(registrationForm.plainPassword.first) }}
+        {{ form_label(registrationForm.plainPassword.first) }}
+        {{ form_widget(registrationForm.plainPassword.first) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(registrationForm.plainPassword.second) }}
+        {{ form_widget(registrationForm.plainPassword.second) }}
+    </div>
+    <button class="btn btn-primary btn-block">
+        {{ button_label|default('Save') }}
+    </button>
+{{ form_end(registrationForm) }}

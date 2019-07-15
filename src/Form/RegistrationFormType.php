@@ -4,42 +4,78 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('identificationCard')
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('nationality', ChoiceType::class, [
+                'label' => true,
+                'label_attr' => ['class' => 'sr-only'],
                 'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
+                'choices' => [
+                    'V' => true,
+                    'E' => false,
                 ],
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
+                'required' => true,
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                    new Type('bool'),
+                ]
+            ])
+            ->add('idCard', NumberType::class, [
+                'label' => true,
+                'label_attr' => ['class' => 'sr-only'],
+                'mapped' => false,
+                'input' => 'string',
+                'attr' => [
+                    'placeholder' => 'Identification Card',
+                    'maxlength' => 8,
+                    'autofocus' => true
+                ],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 7, 'max' => 8]),
+                    new GreaterThanOrEqual(9000000),
+                    new LessThanOrEqual(30000000),
+                ]
+            ])
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'mapped' => false,
+                'invalid_message' => 'The password fields must match.',
+                'first_options'  => [
+                    'label' => true,
+                    'label_attr' => ['class' => 'sr-only'],
+                    'attr' => [
+                        'maxlength' => 30,
+                        'placeholder' => 'Password',
+                    ]
+                ],
+                'second_options' => [
+                    'label' => true,
+                    'label_attr' => ['class' => 'sr-only'],
+                    'attr' => [
+                        'maxlength' => 30,
+                        'placeholder' => 'Repeat Password',
+                    ]
+                ],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 6, 'max' => 30]),
                 ],
             ])
         ;

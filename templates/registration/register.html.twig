@@ -1,15 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Sign Up | NRP{% endblock %}
 
-{% block body %}
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.identificationCard) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+{% block content %}
+    <main role="main">
+        <div class="container-fluid py-5">
+            <div class="row">
+                <div class="col text-center">
+                    <i class="fas fa-paw display-2 mb-2"></i>
+                    <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-md-5">
+                    {{ include('registration/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
