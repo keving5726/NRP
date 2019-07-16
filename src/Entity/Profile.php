@@ -20,44 +20,44 @@ class Profile
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="profile", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserIdentification;
+    private $userIdentification;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $FirstName;
+    private $firstName;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $LastName;
+    private $lastName;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Sex")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Sex;
+    private $sex;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\MaritalStatus")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $MaritalStatus;
+    private $maritalStatus;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $Birthdate;
+    private $birthdate;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $CreatedAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $UpdatedAt;
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -66,96 +66,96 @@ class Profile
 
     public function getUserIdentification(): ?User
     {
-        return $this->UserIdentification;
+        return $this->userIdentification;
     }
 
-    public function setUserIdentification(User $UserIdentification): self
+    public function setUserIdentification(User $userIdentification): self
     {
-        $this->UserIdentification = $UserIdentification;
+        $this->userIdentification = $userIdentification;
 
         return $this;
     }
 
     public function getFirstName(): ?string
     {
-        return $this->FirstName;
+        return $this->firstName;
     }
 
-    public function setFirstName(string $FirstName): self
+    public function setFirstName(string $firstName): self
     {
-        $this->FirstName = $FirstName;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     public function getLastName(): ?string
     {
-        return $this->LastName;
+        return $this->lastName;
     }
 
-    public function setLastName(string $LastName): self
+    public function setLastName(string $lastName): self
     {
-        $this->LastName = $LastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     public function getSex(): ?Sex
     {
-        return $this->Sex;
+        return $this->sex;
     }
 
-    public function setSex(?Sex $Sex): self
+    public function setSex(?Sex $sex): self
     {
-        $this->Sex = $Sex;
+        $this->sex = $sex;
 
         return $this;
     }
 
     public function getMaritalStatus(): ?MaritalStatus
     {
-        return $this->MaritalStatus;
+        return $this->maritalStatus;
     }
 
-    public function setMaritalStatus(?MaritalStatus $MaritalStatus): self
+    public function setMaritalStatus(?MaritalStatus $maritalStatus): self
     {
-        $this->MaritalStatus = $MaritalStatus;
+        $this->maritalStatus = $maritalStatus;
 
         return $this;
     }
 
     public function getBirthdate(): ?\DateTimeInterface
     {
-        return $this->Birthdate;
+        return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTimeInterface $Birthdate): self
+    public function setBirthdate(\DateTimeInterface $birthdate): self
     {
-        $this->Birthdate = $Birthdate;
+        $this->birthdate = $birthdate;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->CreatedAt;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $CreatedAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->CreatedAt = $CreatedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->UpdatedAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $UpdatedAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->UpdatedAt = $UpdatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
