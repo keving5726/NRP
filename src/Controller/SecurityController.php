@@ -7,10 +7,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * @Route(
+ *     "/{_locale}",
+ *     defaults={
+ *         "_locale": "%locale%",
+ *         "_format": "html"
+ *     },
+ *     requirements={
+ *         "_locale": "%app.locales%",
+ *         "_format": "html|xml"
+ *     },
+ *     schemes={"https"}
+ * )
+ */
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -23,11 +37,14 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', [
+            'last_username' => substr($lastUsername, 2),
+            'error' => $error
+        ]);
     }
 
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/logout", name="logout")
      */
     public function logout()
     {

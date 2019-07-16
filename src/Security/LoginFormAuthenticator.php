@@ -38,14 +38,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        return 'app_login' === $request->attributes->get('_route')
+        return 'login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
     public function getCredentials(Request $request)
     {
+        $nationality = ($request->get('nationality') == 1) ? "V" : "E";
         $credentials = [
-            'identificationCard' => $request->request->get('identificationCard'),
+            'identificationCard' => $nationality . "-" . $request->request->get('identificationCard'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
@@ -68,7 +69,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Identification Card could not be found.');
+            throw new CustomUserMessageAuthenticationException('Your Identification Card is not registered.');
         }
 
         return $user;
@@ -86,11 +87,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('about'));
     }
 
     protected function getLoginUrl()
     {
-        return $this->urlGenerator->generate('app_login');
+        return $this->urlGenerator->generate('login');
     }
 }
