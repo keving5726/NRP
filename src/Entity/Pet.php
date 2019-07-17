@@ -46,7 +46,13 @@ class Pet
     /**
      * @ORM\Column(type="datetime")
      */
-    private $updateAt;
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="pets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userIdentification;
 
     public function getId(): ?int
     {
@@ -113,14 +119,26 @@ class Pet
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUserIdentification(): ?User
+    {
+        return $this->userIdentification;
+    }
+
+    public function setUserIdentification(?User $userIdentification): self
+    {
+        $this->userIdentification = $userIdentification;
 
         return $this;
     }

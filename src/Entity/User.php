@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -41,6 +43,11 @@ class User implements UserInterface
     private $profile;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Pet", mappedBy="userIdentification", orphanRemoval=true)
+     */
+    private $pets;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -49,6 +56,11 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    public function __construct()
+    {
+        $this->pets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,6 +177,37 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pet[]
+     */
+    public function getPets(): Collection
+    {
+        return $this->pets;
+    }
+
+    public function addPet(Pet $pet): self
+    {
+        if (!$this->pets->contains($pet)) {
+            $this->pets[] = $pet;
+            $pet->setUserIdentification($this);
+        }
+
+        return $this;
+    }
+
+    public function removePet(Pet $pet): self
+    {
+        if ($this->pets->contains($pet)) {
+            $this->pets->removeElement($pet);
+            // set the owning side to null (unless already changed)
+            if ($pet->getUserIdentification() === $this) {
+                $pet->setUserIdentification(null);
+            }
+        }
 
         return $this;
     }
