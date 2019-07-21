@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pets | NRP{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container-fluid py-5">
+            <div class="row">
+                <div class="col">
+                    <h1>Pets</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Sex</th>
+                                <th>Birthdate</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% if app.user.profile %}
+                            {% for pet in pets %}
+                                <tr>
+                                    <td>{{ pet.name }}</td>
+                                    <td>{{ pet.type }}</td>
+                                    <td>{{ pet.sex }}</td>
+                                    <td>{{ pet.birthdate ? pet.birthdate|date('Y-m-d') : '' }}</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="{{ path('pet_show', {'id': pet.id}) }}">Show</a>
+                                        <a class="btn btn-primary btn-sm" href="{{ path('pet_edit', {'id': pet.id}) }}">Edit</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="alert alert-danger" role="alert">
+                                            Your do not have any registered pet yet!
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                <tr>
+                                    <td colspan="5">
+                                        <a class="btn btn-primary" href="{{ path('pet_new') }}">Register</a>
+                                    </td>
+                                </tr>
+
+                        {% else %}
+                            <tr>
+                                <td colspan="5">
+                                    <div class="alert alert-danger" role="alert">
+                                        Your profile is empty. Please create a new profile!
+                                    </div>
+                                    <a class="btn btn-primary" href="{{ path('profile_new') }}">Create</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
