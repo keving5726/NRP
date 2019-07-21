@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile | NRP{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container-fluid py-5">
+            <div class="row">
+                <div class="col">
+                    <h1>Profile</h1>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ profile.firstName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>{{ profile.lastName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sex</th>
+                                <td>{{ profile.sex }}</td>
+                            </tr>
+                            <tr>
+                                <th>Marital Status</th>
+                                <td>{{ profile.maritalStatus }}</td>
+                            </tr>
+                            <tr>
+                                <th>Birthdate</th>
+                                <td>{{ profile.birthdate ? profile.birthdate|date('Y-m-d') : '' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary" href="{{ path('profile_index') }}">Back</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
