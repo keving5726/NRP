@@ -22,7 +22,6 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('nationality', ChoiceType::class, [
-                'label' => true,
                 'label_attr' => ['class' => 'sr-only'],
                 'mapped' => false,
                 'choices' => [
@@ -35,7 +34,6 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('idCard', NumberType::class, [
-                'label' => true,
                 'label_attr' => ['class' => 'sr-only'],
                 'mapped' => false,
                 'input' => 'string',
@@ -57,7 +55,6 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'invalid_message' => 'The password fields must match.',
                 'first_options'  => [
-                    'label' => true,
                     'label_attr' => ['class' => 'sr-only'],
                     'attr' => [
                         'maxlength' => 30,
@@ -65,7 +62,6 @@ class RegistrationFormType extends AbstractType
                     ]
                 ],
                 'second_options' => [
-                    'label' => true,
                     'label_attr' => ['class' => 'sr-only'],
                     'attr' => [
                         'maxlength' => 30,
