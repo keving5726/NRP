@@ -18,7 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  *         "_locale": "%app.locales%",
  *         "_format": "html|xml"
  *     },
- *     schemes={"https"}
+ *     schemes={"http"}
  * )
  */
 class SecurityController extends AbstractController

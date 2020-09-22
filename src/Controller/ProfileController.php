@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *         "_locale": "%app.locales%",
  *         "_format": "html|xml"
  *     },
- *     schemes={"https"}
+ *     schemes={"http"}
  * )
  */
 class ProfileController extends AbstractController

@@ -23,7 +23,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
  *         "_locale": "%app.locales%",
  *         "_format": "html|xml"
  *     },
- *     schemes={"https"}
+ *     schemes={"http"}
  * )
  */
 class RegistrationController extends AbstractController
